@@ -8,7 +8,7 @@ import users_pb2
 import users_pb2_grpc
 
 def get_database():
-     CONNECTION_STRING = "mongodb+srv://nibatandukar:obhjOq2Hk3kbLvrs@cluster0.yklhrlj.mongodb.net/?retryWrites=true&w=majority"
+     CONNECTION_STRING = "mongodb+srv://nibatandukar:obhjOq2Hk3kbLvrss@cluster0.yklhrlj.mongodb.net/?retryWrites=true&w=majority"
      client = MongoClient(CONNECTION_STRING)
      print("Database connected !!!")
      return client["grpc"]
