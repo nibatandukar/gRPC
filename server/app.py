@@ -8,26 +8,15 @@ import users_pb2
 import users_pb2_grpc
 
 def get_database():
-     CONNECTION_STRING = "mongodb+srv://nibatandukar:obhjOq2Hk3kbLvrss@cluster0.yklhrlj.mongodb.net/?retryWrites=true&w=majority"
+     CONNECTION_STRING = "mongodb+srv://nibatandukar:obhjOq2Hk3kbLvrs@cluster0.yklhrlj.mongodb.net/?retryWrites=true&w=majority"
      client = MongoClient(CONNECTION_STRING)
      print("Database connected !!!")
      return client["grpc"]
 
 
-# class Users(users_pb2_grpc.UsersServicer):
-#     def GetUsers(self, request, context):
-#         return users_pb2.GetUsersResponse(users=[
-#             users_pb2.User(
-#                   id='1', 
-#                   name='Ram Test',
-#                   email='ram@132.com',
-#                   password='test123'
-#                            )
-#         ])
-    
 class Users(users_pb2_grpc.UsersServicer):
     def CreateUser(self, request, context):
-        print("There is request to creater a user",request.user)
+        print("There is request to creater a user",request)
         client = get_database()
         usercollection = client["user"]
         response = usercollection.find_one({
@@ -60,7 +49,7 @@ class Users(users_pb2_grpc.UsersServicer):
         return users_pb2.DeleteUserResponse(user=users_pb2.User(id=request.id))
     
     def GetUserById(self, request, context):
-        print("The client is excepecting to list the user", dbresponse["id"] )
+        print("The client is excepecting to list the user")
         client = get_database()
         dbresponse =  client["user"].find_one({
             'id': request.id     
@@ -94,28 +83,6 @@ class Users(users_pb2_grpc.UsersServicer):
             email = response["email"],
             password = response["password"]
         ))
-
-
-# class Users(users_pb2_grpc.UsersServicer):
-#     def GetUsers(self, request, context):
-#         print("The client is requesting to list user", request.user.id)
-#         client = get_database()
-#         client["user"].find({
-#             'name':request.user.id
-#         })
-#         return users_pb2.GetUsersResponse(user=users_pb2.User(
-#             name = request.user.id
-#         ))
-    
-# class Users(users_pb2_grpc.UsersServicer):
-#     def DeleteUser(self, request, context):
-#         print("The client is requesting to delete user id", request.id, "to delete!!!!" )
-#         client = get_database()
-#         client["user"].delete_one({
-#             'id': request.id
-#             })
-#         return users_pb2.DeleteUserResponse(user=users_pb2.User(id=request.id))
-
     
 def serve():
     port = '50051'

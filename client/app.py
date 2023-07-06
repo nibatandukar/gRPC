@@ -5,11 +5,11 @@ import users_pb2_grpc
 
 ##################### Create New User ########################
 def createUser():
-    print("Will try to greet world ...")
+    print("Connecting the database...")
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = users_pb2_grpc.UsersStub(channel)
         payload={
-                "id":"17",
+                "id":"1234543",
                 "name":"Bob5",
                 "email":"bb",
                 "password":"dabhd"}
@@ -60,7 +60,7 @@ def updateUser():
 #          print(respone)
 
 if __name__ == '__main__':
-      createUser()
+    #   createUser()
     #   deleteUser()
-    #   getUserById()
+      getUserById()
     #   updateUser()
